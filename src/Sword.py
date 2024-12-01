@@ -7,31 +7,31 @@ import cv2 # type: ignore
 class Sword:
     def __init__(self):
         self.angle = 0
+
         self.texture_path = 'assets/textures/sword_texture.jpg'
         self.obj_path = 'assets/models/sword.obj'
+
+        self.texture_id = self.load_texture()
+        self.vertices, self.uvs, self.faces = self.load_object()
     
     def render(self):
         glPushMatrix()
         glRotatef(90, 1, 0, 0)
         glRotatef(self.angle, 1, 0, 0)
 
-        vertices, uvs, faces = self.load_object()
-        texture_id = self.load_texture()
-
         glEnable(GL_TEXTURE_2D)
-        glBindTexture(GL_TEXTURE_2D, texture_id)
+        glBindTexture(GL_TEXTURE_2D, self.texture_id)
 
         glBegin(GL_TRIANGLES)
 
-        for face in faces:
+        for face in self.faces:
             for vertex_index, uv_index in face:
-                glTexCoord2fv(uvs[uv_index])
-                glVertex3fv(vertices[vertex_index])
+                glTexCoord2fv(self.uvs[uv_index])
+                glVertex3fv(self.vertices[vertex_index])
 
         glEnd()
-        
+
         glDisable(GL_TEXTURE_2D)
-        glDeleteTextures([texture_id])
 
         self._increment_angle()
 
