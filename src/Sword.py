@@ -29,7 +29,9 @@ class Sword:
                 glVertex3fv(vertices[vertex_index])
 
         glEnd()
+        
         glDisable(GL_TEXTURE_2D)
+        glDeleteTextures([texture_id])
 
         self._increment_angle()
 
@@ -94,3 +96,6 @@ class Sword:
     
     def _increment_angle(self):
         self.angle += 1
+
+        if self.angle >= 360:
+            self.angle = 0
