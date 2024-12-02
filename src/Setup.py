@@ -50,7 +50,7 @@ class Setup:
             self.sword.render()
 
             pygame.display.flip()
-            pygame.time.wait(10)
+            pygame.time.Clock().tick(120)
 
         pygame.quit()
     
